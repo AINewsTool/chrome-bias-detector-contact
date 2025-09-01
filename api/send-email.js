@@ -1,9 +1,18 @@
-// api/send-email.js
 import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async function handler(req, res) {
+  // --- Add CORS headers ---
+  res.setHeader("Access-Control-Allow-Origin", "https://www.truscope.app");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Handle preflight OPTIONS request
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -15,8 +24,8 @@ export default async function handler(req, res) {
   }
 
   const msg = {
-    to: "truscope.help@gmail.com",      // Your inbox
-    from: "support@truscope.app",       // Verified in SendGrid
+    to: "truscope.help@gmail.com",
+    from: "support@truscope.app",  // must be verified in SendGrid
     replyTo: email,
     subject: `Contact Form: ${reason} from ${name}`,
     html: `
@@ -29,9 +38,9 @@ export default async function handler(req, res) {
 
   try {
     await sgMail.send(msg);
-    res.status(200).json({ success: true });
+    return res.status(200).json({ success: true });
   } catch (err) {
     console.error("SendGrid error:", err);
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 }
