@@ -1,0 +1,23 @@
+{
+  "name": "chrome-bias-detector-contact",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AINewsTool/chrome-bias-detector-contact.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AINewsTool/chrome-bias-detector-contact/issues"
+  },
+  "homepage": "https://github.com/AINewsTool/chrome-bias-detector-contact#readme",
+  "description": "",
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.5"
+  }
+}
